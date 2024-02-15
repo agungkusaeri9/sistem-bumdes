@@ -3,7 +3,8 @@
 -   Login
 -   Edit Profile
 -   Edit Password
--   Manajemen User
+-   Kelola User
+-   Kelola Jenis
 
 ## Persyaratan Sistem
 
@@ -25,7 +26,7 @@ cd C:\xampp\htdocs
 selanjutnya clone repositori proyek ini dari GitHub:
 
 ```bash
-git clone https://github.com/agungkusaeri9/template-admin-laravel9-adminlte.git template-admin-laravel9-adminlte
+git clone https://github.com/agungkusaeri9/sistem-bumdes.git sistem-bumdes
 ```
 
 ## Langkah 2: Install Dependensi PHP
@@ -33,7 +34,7 @@ git clone https://github.com/agungkusaeri9/template-admin-laravel9-adminlte.git 
 Anda perlu memasuki direktori proyek yang baru saja Anda clone dan menjalankan perintah berikut untuk menginstal semua dependensi PHP:
 
 ```bash
-cd template-admin-laravel9-adminlte
+cd sistem-bumdes
 composer install
 ```
 
@@ -51,7 +52,7 @@ php artisan key:generate
 Sesuaikan nama database, username, dan passwordnya, jika anda menggunakan xampp anda hanya menyesuaikan nama database nya saja, untuk mengkonfigurasi database di file `.env` seperti berikut :
 
 ```bash
-DB_DATABASE=template_laravel
+DB_DATABASE=sistem_bumdes
 DB_USERNAME=root
 DB_PASSWORD=
 ```
@@ -107,7 +108,7 @@ http://127.0.0.1:8000
 Selanjutnya anda bisa melakukan login dengan :
 
 -   Email : admin@gmail.com
--   Password : admin
+-   Password : password
 
 ## Selamat! Anda telah berhasil menginstal proyek tersebut.
 

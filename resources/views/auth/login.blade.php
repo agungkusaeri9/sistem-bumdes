@@ -29,14 +29,14 @@
                         @enderror
                     </div>
                     <div class="input-group mb-3">
-                        <input type="password" class="form-control  @error('email') is-invalid @enderror"
+                        <input type="password" class="form-control  @error('password') is-invalid @enderror"
                             placeholder="Password" name="password">
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-lock"></span>
                             </div>
                         </div>
-                        @error('email')
+                        @error('password')
                             <div class="invalid-feedback">
                                 {{ $message }}
                             </div>
