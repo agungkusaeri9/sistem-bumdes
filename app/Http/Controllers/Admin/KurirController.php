@@ -88,7 +88,7 @@ class KurirController extends Controller
     {
 
         request()->validate([
-            'kode' => ['required', 'unique:kurir,kode'],
+            'kode' => ['required', 'unique:kurir,kode,' . $id],
             'nama' => ['required']
         ]);
 

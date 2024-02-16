@@ -34,7 +34,7 @@
                                     @csrf
                                     <div class='form-group mb-3'>
                                         <label for='kode' class='mb-2'>Kode</label>
-                                        <input type='number' name='kode'
+                                        <input type='text' name='kode'
                                             class='form-control @error('kode') is-invalid @enderror'
                                             value='{{ old('kode') }}'>
                                         @error('kode')
