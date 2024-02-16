@@ -3,7 +3,9 @@
 use App\Http\Controllers\Admin\ChangePasswordController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\JenisController;
+use App\Http\Controllers\Admin\MetodePembayaranController;
 use App\Http\Controllers\Admin\ProfileController;
+use App\Http\Controllers\Admin\SatuanController;
 use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -15,3 +17,5 @@ Route::post('/change-password', [ChangePasswordController::class, 'update'])->na
 
 Route::resource('users', UserController::class)->except('show');
 Route::resource('jenis', JenisController::class)->except('show');
+Route::resource('satuan', SatuanController::class)->except('show');
+Route::resource('metode-pembayaran', MetodePembayaranController::class)->except('show');

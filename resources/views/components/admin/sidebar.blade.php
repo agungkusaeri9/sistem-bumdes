@@ -44,6 +44,22 @@
                         </a>
                     </li>
                     <li class="nav-item">
+                        <a href="{{ route('admin.satuan.index') }}" class="nav-link">
+                            <i class="nav-icon fas fa-folder"></i>
+                            <p>
+                                Satuan
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('admin.metode-pembayaran.index') }}" class="nav-link">
+                            <i class="nav-icon fas fa-folder"></i>
+                            <p>
+                                Metode Pembayaran
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a href="{{ route('admin.users.index') }}" class="nav-link">
                             <i class="nav-icon fas fa-users"></i>
                             <p>
