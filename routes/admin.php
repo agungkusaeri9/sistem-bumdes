@@ -2,12 +2,15 @@
 
 use App\Http\Controllers\Admin\ChangePasswordController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\GaleriProdukController;
 use App\Http\Controllers\Admin\JenisController;
 use App\Http\Controllers\Admin\KurirController;
 use App\Http\Controllers\Admin\MetodePembayaranController;
+use App\Http\Controllers\Admin\ProdukController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\SatuanController;
 use App\Http\Controllers\Admin\UserController;
+use App\Models\GaleriProduk;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
@@ -21,3 +24,9 @@ Route::resource('jenis', JenisController::class)->except('show');
 Route::resource('satuan', SatuanController::class)->except('show');
 Route::resource('metode-pembayaran', MetodePembayaranController::class)->except('show');
 Route::resource('kurir', KurirController::class)->except('show');
+Route::resource('produk', ProdukController::class)->except('show');
+Route::controller(GaleriProdukController::class)->name('galeri-produk.')->group(function () {
+    Route::get('/galeri-produk/{id}', 'index')->name('index');
+    Route::post('/galeri-produk/{id}', 'store')->name('store');
+    Route::delete('/galeri-produk/{id}', 'destroy')->name('destroy');
+});

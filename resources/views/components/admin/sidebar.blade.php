@@ -63,7 +63,15 @@
                         <a href="{{ route('admin.kurir.index') }}" class="nav-link">
                             <i class="nav-icon fas fa-folder"></i>
                             <p>
-                                Metode Kurir
+                                Kurir
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('admin.produk.index') }}" class="nav-link">
+                            <i class="nav-icon fas fa-folder"></i>
+                            <p>
+                                Produk
                             </p>
                         </a>
                     </li>
