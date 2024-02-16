@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\ChangePasswordController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\JenisController;
+use App\Http\Controllers\Admin\KurirController;
 use App\Http\Controllers\Admin\MetodePembayaranController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\SatuanController;
@@ -19,3 +20,4 @@ Route::resource('users', UserController::class)->except('show');
 Route::resource('jenis', JenisController::class)->except('show');
 Route::resource('satuan', SatuanController::class)->except('show');
 Route::resource('metode-pembayaran', MetodePembayaranController::class)->except('show');
+Route::resource('kurir', KurirController::class)->except('show');
