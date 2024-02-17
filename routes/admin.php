@@ -9,8 +9,10 @@ use App\Http\Controllers\Admin\MetodePembayaranController;
 use App\Http\Controllers\Admin\ProdukController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\SatuanController;
+use App\Http\Controllers\Admin\StokProdukController;
 use App\Http\Controllers\Admin\UserController;
 use App\Models\GaleriProduk;
+use App\Models\StokProduk;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
@@ -29,4 +31,10 @@ Route::controller(GaleriProdukController::class)->name('galeri-produk.')->group(
     Route::get('/galeri-produk/{id}', 'index')->name('index');
     Route::post('/galeri-produk/{id}', 'store')->name('store');
     Route::delete('/galeri-produk/{id}', 'destroy')->name('destroy');
+});
+
+Route::controller(StokProdukController::class)->name('stok-produk.')->group(function () {
+    Route::get('/stok-produk', 'index')->name('index');
+    Route::post('/stok-produk', 'store')->name('store');
+    Route::delete('/stok-produk/{id}', 'destroy')->name('destroy');
 });

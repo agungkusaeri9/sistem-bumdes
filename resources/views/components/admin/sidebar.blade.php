@@ -4,7 +4,7 @@
         <a href="{{ route('admin.dashboard') }}" class="brand-link">
             <span class="brand-text font-weight-light">
                 <div class="text-center">
-                    {{ env('APP_NAME') }}
+                    BUMDES
                 </div>
             </span>
         </a>
@@ -37,7 +37,7 @@
                     </li>
                     <li class="nav-item">
                         <a href="{{ route('admin.jenis.index') }}" class="nav-link">
-                            <i class="nav-icon fas fa-folder"></i>
+                            <i class="nav-icon fas fa-tag"></i>
                             <p>
                                 Jenis
                             </p>
@@ -45,7 +45,7 @@
                     </li>
                     <li class="nav-item">
                         <a href="{{ route('admin.satuan.index') }}" class="nav-link">
-                            <i class="nav-icon fas fa-folder"></i>
+                            <i class="nav-icon fas fa-balance-scale"></i>
                             <p>
                                 Satuan
                             </p>
@@ -53,7 +53,7 @@
                     </li>
                     <li class="nav-item">
                         <a href="{{ route('admin.metode-pembayaran.index') }}" class="nav-link">
-                            <i class="nav-icon fas fa-folder"></i>
+                            <i class="nav-icon fas fa-credit-card"></i>
                             <p>
                                 Metode Pembayaran
                             </p>
@@ -61,7 +61,7 @@
                     </li>
                     <li class="nav-item">
                         <a href="{{ route('admin.kurir.index') }}" class="nav-link">
-                            <i class="nav-icon fas fa-folder"></i>
+                            <i class="nav-icon fas fa-truck"></i>
                             <p>
                                 Kurir
                             </p>
@@ -69,9 +69,17 @@
                     </li>
                     <li class="nav-item">
                         <a href="{{ route('admin.produk.index') }}" class="nav-link">
-                            <i class="nav-icon fas fa-folder"></i>
+                            <i class="nav-icon fas fa-box-open"></i>
                             <p>
                                 Produk
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('admin.stok-produk.index') }}" class="nav-link">
+                            <i class="nav-icon fas fa-clipboard-check"></i>
+                            <p>
+                                Kelola Stok Produk
                             </p>
                         </a>
                     </li>
