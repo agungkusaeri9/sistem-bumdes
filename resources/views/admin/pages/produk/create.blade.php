@@ -73,11 +73,11 @@
                                         @enderror
                                     </div>
                                     <div class='form-group mb-3'>
-                                        <label for='stok' class='mb-2'>Stok</label>
-                                        <input type='number' name='stok'
-                                            class='form-control @error('stok') is-invalid @enderror'
-                                            value='{{ old('stok') }}'>
-                                        @error('stok')
+                                        <label for='stok_awal' class='mb-2'>Stok Awal</label>
+                                        <input type='number' name='stok_awal'
+                                            class='form-control @error('stok_awal') is-invalid @enderror'
+                                            value='{{ old('stok_awal') }}'>
+                                        @error('stok_awal')
                                             <div class='invalid-feedback'>
                                                 {{ $message }}
                                             </div>

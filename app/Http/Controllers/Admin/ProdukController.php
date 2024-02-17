@@ -54,13 +54,14 @@ class ProdukController extends Controller
             'nama' => ['required'],
             'jenis_id' => ['required'],
             'satuan_id' => ['required'],
-            'stok' => ['required'],
+            'stok_awal' => ['required'],
             'harga' => ['required'],
             'deskripsi' => ['required'],
             'gambar' => ['required', 'image', 'mimes:jpg,png,jpeg,svg', 'max:2048'],
         ]);
         $data = request()->except(['gambar']);
         $data['slug'] = \Str::slug(request('nama')) . rand(100, 200);
+        $data['stok'] = request('stok_awal');
         $data['gambar'] = request()->file('gambar')->store('produk', 'public');
         Produk::create($data);
         return redirect()->route('admin.produk.index')->with('success', 'Produk berhasil ditambahkan.');
@@ -109,7 +110,6 @@ class ProdukController extends Controller
             'nama' => ['required'],
             'jenis_id' => ['required'],
             'satuan_id' => ['required'],
-            'stok' => ['required'],
             'harga' => ['required'],
             'deskripsi' => ['required'],
             'gambar' => ['image', 'mimes:jpg,png,jpeg,svg', 'max:2048'],

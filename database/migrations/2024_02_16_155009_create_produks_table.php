@@ -20,6 +20,7 @@ return new class extends Migration
             $table->foreignId('satuan_id')->constrained('satuan');
             $table->string('slug');
             $table->integer('stok');
+            $table->integer('stok_awal')->default(0);
             $table->text('deskripsi');
             $table->double('harga');
             $table->integer('terjual')->default(0);
