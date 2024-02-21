@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\ProdukController;
+use App\Http\Controllers\PageController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -14,6 +16,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::redirect('/','/admin');
+// Route::redirect('/','/admin');
+
 Auth::routes(['register' => false]);
 
+
+Route::controller(PageController::class)->group(function () {
+    Route::get('/', 'home')->name('home');
+    Route::get('/contact', 'contact')->name('contact');
+    Route::get('/about', 'about')->name('about');
+    Route::get('/cart', 'keranjang')->name('keranjang');
+});
+
+Route::controller(ProdukController::class)->group(function () {
+    Route::get('/product', 'index')->name('produk.index');
+    Route::get('/product/{slug}', 'show')->name('produk.show');
+});
