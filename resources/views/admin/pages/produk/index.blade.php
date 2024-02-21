@@ -37,6 +37,7 @@
                                                 <th>Nama</th>
                                                 <th>Jenis</th>
                                                 <th>Satuan</th>
+                                                <th>Berat (g)</th>
                                                 <th>Stok Awal</th>
                                                 <th>Stok Akhir</th>
                                                 <th>Harga</th>
@@ -55,6 +56,7 @@
                                                     <td class="align-middle">{{ $item->nama }}</td>
                                                     <td class="align-middle">{{ $item->jenis->nama }}</td>
                                                     <td class="align-middle">{{ $item->satuan->nama }}</td>
+                                                    <td class="align-middle">{{ $item->berat }}</td>
                                                     <td class="align-middle">{{ $item->stok_awal }}</td>
                                                     <td class="align-middle">{{ $item->stok }}</td>
                                                     <td class="align-middle">{{ $item->harga }}</td>

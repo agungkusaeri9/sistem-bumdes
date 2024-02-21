@@ -57,6 +57,7 @@ class ProdukController extends Controller
             'stok_awal' => ['required'],
             'harga' => ['required'],
             'deskripsi' => ['required'],
+            'berat' => ['required'],
             'gambar' => ['required', 'image', 'mimes:jpg,png,jpeg,svg', 'max:2048'],
         ]);
         $data = request()->except(['gambar']);
@@ -113,6 +114,7 @@ class ProdukController extends Controller
             'harga' => ['required'],
             'deskripsi' => ['required'],
             'gambar' => ['image', 'mimes:jpg,png,jpeg,svg', 'max:2048'],
+            'berat' => ['required']
         ]);
         $item = Produk::findOrFail($id);
         $data = request()->except(['gambar']);

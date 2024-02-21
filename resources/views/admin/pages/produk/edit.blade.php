@@ -74,6 +74,17 @@
                                         @enderror
                                     </div>
                                     <div class='form-group mb-3'>
+                                        <label for='berat' class='mb-2'>Berat (g)</label>
+                                        <input type='number' name='berat'
+                                            class='form-control @error('berat') is-invalid @enderror'
+                                            value='{{ $item->berat ?? old('berat') }}'>
+                                        @error('berat')
+                                            <div class='invalid-feedback'>
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                    <div class='form-group mb-3'>
                                         <label for='harga' class='mb-2'>Harga</label>
                                         <input type='number' name='harga'
                                             class='form-control @error('harga') is-invalid @enderror'
