@@ -41,20 +41,27 @@ class TransaksiController extends Controller
             'status' => ['required']
         ]);
 
-       $item = Transaksi::where('uuid',$uuid)->firstOrFail();
-       $item->update([
-        'status' => request('status'),
-        'nomor_resi' => request('nomor_resi')
-       ]);
+        $item = Transaksi::where('uuid', $uuid)->firstOrFail();
+        $status_awal = $item->status;
+        $item->update([
+            'status' => request('status'),
+            'nomor_resi' => request('nomor_resi')
+        ]);
 
-       return redirect()->route('admin.transaksi.index')->with('success','Transaksi berhasil diupdate.');
+        // if (request('status') === 'SELESAI' && $status_awal !== 'SELESAI') {
+        //     foreach ($item->details as $detail) {
+        //         // kurangi stok produk
+        //         $detail->produk->decrement('stok', $detail->jumlah);
+        //     }
+        // }
+        return redirect()->route('admin.transaksi.index')->with('success', 'Transaksi berhasil diupdate.');
     }
 
     public function destroy($uuid)
     {
-        $item = Transaksi::where('uuid',$uuid)->firstOrFail();
+        $item = Transaksi::where('uuid', $uuid)->firstOrFail();
         $item->delete();
 
-        return redirect()->route('admin.transaksi.index')->with('success','Transaksi berhasil dihapus.');
+        return redirect()->route('admin.transaksi.index')->with('success', 'Transaksi berhasil dihapus.');
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\View\Components\Frontend;
 
+use App\Models\Jenis;
 use Illuminate\View\Component;
 
 class Footer extends Component
@@ -23,6 +24,9 @@ class Footer extends Component
      */
     public function render()
     {
-        return view('components.frontend.footer');
+        $data_jenis = Jenis::orderBy('nama', 'ASC')->get();
+        return view('components.frontend.footer', [
+            'data_jenis' => $data_jenis
+        ]);
     }
 }

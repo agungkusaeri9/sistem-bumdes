@@ -35,38 +35,6 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ route('admin.jenis.index') }}" class="nav-link">
-                        <i class="nav-icon fas fa-tag"></i>
-                        <p>
-                            Jenis
-                        </p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{ route('admin.satuan.index') }}" class="nav-link">
-                        <i class="nav-icon fas fa-balance-scale"></i>
-                        <p>
-                            Satuan
-                        </p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{ route('admin.metode-pembayaran.index') }}" class="nav-link">
-                        <i class="nav-icon fas fa-credit-card"></i>
-                        <p>
-                            Metode Pembayaran
-                        </p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{ route('admin.kurir.index') }}" class="nav-link">
-                        <i class="nav-icon fas fa-truck"></i>
-                        <p>
-                            Kurir
-                        </p>
-                    </a>
-                </li>
-                <li class="nav-item">
                     <a href="{{ route('admin.produk.index') }}" class="nav-link">
                         <i class="nav-icon fas fa-box-open"></i>
                         <p>
@@ -140,6 +108,30 @@
                             <a href="{{ route('admin.users.index') }}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>User</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('admin.jenis.index') }}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Jenis</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('admin.satuan.index') }}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Satuan</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('admin.metode-pembayaran.index') }}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Metode Pembayaran</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('admin.kurir.index') }}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Kurir</p>
                             </a>
                         </li>
                     </ul>

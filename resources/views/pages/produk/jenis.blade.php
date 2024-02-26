@@ -5,14 +5,14 @@
         <div class="container">
             <div class="flex-w flex-sb-m p-b-52">
                 <div class="flex-w flex-l-m filter-tope-group m-tb-10">
-                    <a class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 how-active1" data-filter="*"
+                    <a class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter="*"
                         href="{{ route('produk.index') }}">
                         Semua Produk
                     </a>
 
                     @foreach ($data_jenis as $jenis)
                         <a href="{{ route('produk.jenis', \Str::slug($jenis->nama)) }}"
-                            class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter=".women">
+                            class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 how-active1" data-filter=".women">
                             {{ $jenis->nama }}
                         </a>
                     @endforeach
@@ -58,7 +58,8 @@
 
                             <div class="block2-txt flex-w flex-t p-t-14">
                                 <div class="block2-txt-child1 flex-col-l ">
-                                    <a href="product-detail.html" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
+                                    <a href="{{ route('produk.show', $item->slug) }}"
+                                        class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
                                         {{ $item->nama }}
                                     </a>
 
