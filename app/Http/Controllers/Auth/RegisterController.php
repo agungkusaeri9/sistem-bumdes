@@ -69,6 +69,7 @@ class RegisterController extends Controller
             'username' => str_replace(" ", "", $data['name']) . rand(100, 999),
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            'status' => 1
         ]);
     }
 }
