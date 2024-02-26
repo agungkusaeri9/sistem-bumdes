@@ -111,6 +111,10 @@
                                             </option>
                                             <option @if ($item->role === 'bendahara') selected @endif value="bendahara">
                                                 Bendahara</option>
+                                            <option @if ($item->role === 'kepala desa') selected @endif value="kepala desa">
+                                                Kepala Desa</option>
+                                            <option @if ($item->role === 'pembeli') selected @endif value="pembeli">
+                                                Pembeli</option>
                                         </select>
                                         @error('status')
                                             <div class="invalid-feedback">

@@ -4,7 +4,8 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration {
+return new class extends Migration
+{
     /**
      * Run the migrations.
      *
@@ -21,7 +22,7 @@ return new class extends Migration {
             $table->string('password');
             $table->boolean('status')->default(0);
             $table->string('avatar')->nullable();
-            $table->enum('role', ['admin', 'bendahara', 'pelanggan'])->default('pelanggan');
+            $table->enum('role', ['admin', 'bendahara', 'kepala desa', 'pembeli'])->default('pembeli');
             $table->rememberToken();
             $table->timestamps();
         });

@@ -107,6 +107,10 @@
                                             </option>
                                             <option @if (old('role') === 'bendahara') selected @endif value="bendahara">
                                                 Bendahara</option>
+                                            <option @if (old('role') === 'kepala desa') selected @endif value="kepala desa">
+                                                Kepala Desa</option>
+                                            <option @if (old('role') === 'pembeli') selected @endif value="pembeli">
+                                                Pembeli</option>
                                         </select>
                                         @error('status')
                                             <div class="invalid-feedback">

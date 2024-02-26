@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\ChangePasswordController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\GaleriProdukController;
+use App\Http\Controllers\Admin\JabatanController;
 use App\Http\Controllers\Admin\JenisController;
 use App\Http\Controllers\Admin\KurirController;
 use App\Http\Controllers\Admin\LaporanController;
@@ -25,6 +26,7 @@ Route::post('/change-password', [ChangePasswordController::class, 'update'])->na
 
 Route::resource('users', UserController::class)->except('show');
 Route::resource('jenis', JenisController::class)->except('show');
+Route::resource('jabatan', JabatanController::class)->except('show');
 Route::resource('satuan', SatuanController::class)->except('show');
 Route::resource('metode-pembayaran', MetodePembayaranController::class)->except('show');
 Route::resource('kurir', KurirController::class)->except('show');
@@ -44,7 +46,7 @@ Route::controller(StokProdukController::class)->name('stok-produk.')->group(func
 
 Route::resource('transaksi', TransaksiController::class);
 
-Route::controller(LaporanController::class)->name('laporan.')->group(function(){
+Route::controller(LaporanController::class)->name('laporan.')->group(function () {
     Route::get('/laporan/transaksi', 'transaksi_index')->name('transaksi.index');
     Route::post('/laporan/transaksi', 'transaksi_print')->name('transaksi.print');
 });
