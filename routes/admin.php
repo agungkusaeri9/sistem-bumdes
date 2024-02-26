@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\ProdukController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\SatuanController;
 use App\Http\Controllers\Admin\StokProdukController;
+use App\Http\Controllers\Admin\TransaksiController;
 use App\Http\Controllers\Admin\UserController;
 use App\Models\GaleriProduk;
 use App\Models\StokProduk;
@@ -38,3 +39,6 @@ Route::controller(StokProdukController::class)->name('stok-produk.')->group(func
     Route::post('/stok-produk', 'store')->name('store');
     Route::delete('/stok-produk/{id}', 'destroy')->name('destroy');
 });
+
+
+Route::resource('transaksi', TransaksiController::class);

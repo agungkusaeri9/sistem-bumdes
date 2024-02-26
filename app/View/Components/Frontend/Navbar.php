@@ -2,6 +2,7 @@
 
 namespace App\View\Components\Frontend;
 
+use App\Models\Keranjang;
 use Illuminate\View\Component;
 
 class Navbar extends Component
@@ -23,6 +24,9 @@ class Navbar extends Component
      */
     public function render()
     {
-        return view('components.frontend.navbar');
+        $keranjang = Keranjang::where('user_id', auth()->id())->count();
+        return view('components.frontend.navbar', [
+            'keranjang' => $keranjang
+        ]);
     }
 }

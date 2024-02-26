@@ -5,9 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Provinsi extends Model
+class Keranjang extends Model
 {
     use HasFactory;
-    protected $table = 'provinces';
+    protected $table = 'keranjang';
     protected $guarded = ['id'];
+
+    public function produk()
+    {
+        return $this->belongsTo(Produk::class);
+    }
 }

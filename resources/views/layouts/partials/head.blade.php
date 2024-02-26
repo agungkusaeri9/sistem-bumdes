@@ -33,6 +33,7 @@
 <!--===============================================================================================-->
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/frontend') }}/css/util.css">
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/frontend') }}/css/main.css">
+<link rel="stylesheet" href="{{ asset('assets/plugins/fontawesome-free/css/all.css') }}">
 <!--===============================================================================================-->
 @stack('styles')
 @vite('resources/js/app.js')

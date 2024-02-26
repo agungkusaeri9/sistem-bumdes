@@ -11,7 +11,7 @@
 
                  <div class="right-top-bar flex-w h-full">
                      @auth
-                         @if (auth()->user()->role !== 'user')
+                         @if (auth()->user()->role === 'admin')
                              <a href="{{ route('admin.dashboard') }}" class="flex-c-m trans-04 p-lr-25">
                                  Dashboard
                              </a>
@@ -19,7 +19,24 @@
                              <a href="{{ route('login') }}" class="flex-c-m trans-04 p-lr-25">
                                  My Account
                              </a>
+                             <a href="{{ route('transaksi.index') }}" class="flex-c-m trans-04 p-lr-25">
+                                 Transaksi
+                             </a>
+                             <form action="{{ route('logout') }}" id="formLogout" method="post">
+                                 @csrf
+                             </form>
+                             <a href="javascript:void(0)" onclick="document.getElementById('formLogout').submit()"
+                                 class="flex-c-m trans-04 p-lr-25">
+                                 Logout
+                             </a>
                          @endif
+                     @else
+                         <a href="{{ route('register') }}" class="flex-c-m trans-04 p-lr-25">
+                             Register
+                         </a>
+                         <a href="{{ route('login') }}" class="flex-c-m trans-04 p-lr-25">
+                             Login
+                         </a>
                      @endauth
 
                  </div>
@@ -59,8 +76,9 @@
                          <i class="zmdi zmdi-search"></i>
                      </div>
 
-                     <div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti " data-notify="2">
-                         <a href="{{ route('keranjang') }}" class="text-dark">
+                     <div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti "
+                         data-notify="{{ $keranjang ? $keranjang : '0' }}">
+                         <a href="{{ route('keranjang.index') }}" class="text-dark">
                              <i class="zmdi zmdi-shopping-cart"></i>
                          </a>
                      </div>
@@ -73,7 +91,8 @@
      <div class="wrap-header-mobile">
          <!-- Logo moblie -->
          <div class="logo-mobile">
-             <a href="index.html"><img src="{{ asset('assets/frontend') }}/images/icons/logo-01.png" alt="IMG-LOGO"></a>
+             <a href="index.html"><img src="{{ asset('assets/frontend') }}/images/icons/logo-01.png"
+                     alt="IMG-LOGO"></a>
          </div>
 
          <!-- Icon header -->

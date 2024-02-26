@@ -84,6 +84,14 @@
                         </a>
                     </li>
                     <li class="nav-item">
+                        <a href="{{ route('admin.transaksi.index') }}" class="nav-link">
+                            <i class="nav-icon fas fa-box-open"></i>
+                            <p>
+                                Transaksi
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a href="{{ route('admin.users.index') }}" class="nav-link">
                             <i class="nav-icon fas fa-users"></i>
                             <p>

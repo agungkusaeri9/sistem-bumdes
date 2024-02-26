@@ -8,9 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Kota extends Model
 {
     use HasFactory;
-    protected $table = 'kota';
+    protected $table = 'cities';
     protected $guarded = ['id'];
-    public $casts = [
-        'id' => 'string'
-    ];
 }

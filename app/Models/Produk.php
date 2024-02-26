@@ -21,6 +21,11 @@ class Produk extends Model
         return $this->belongsTo(Satuan::class);
     }
 
+    public function galeri()
+    {
+        return $this->hasMany(GaleriProduk::class, 'produk_id', 'id');
+    }
+
     public function gambar()
     {
         return asset('storage/' . $this->gambar);

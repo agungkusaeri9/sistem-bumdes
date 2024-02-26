@@ -6,12 +6,14 @@
             <div class="flex-w flex-sb-m p-b-52">
                 <div class="flex-w flex-l-m filter-tope-group m-tb-10">
                     <button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 how-active1" data-filter="*">
-                        All Products
+                        Semua Produk
                     </button>
 
-                    <button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter=".women">
-                        Women
-                    </button>
+                    @foreach ($data_jenis as $jenis)
+                        <a href="#" class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter=".women">
+                            {{ $jenis->nama }}
+                        </a>
+                    @endforeach
                 </div>
 
                 <div class="flex-w flex-c-m m-tb-10">
@@ -37,49 +39,46 @@
             </div>
 
             <div class="row isotope-grid">
-                <div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item women">
-                    <!-- Block2 -->
-                    <div class="block2">
-                        <div class="block2-pic hov-img0">
-                            <img src="{{ asset('assets/frontend') }}/images/product-01.jpg" alt="IMG-PRODUCT">
+                @forelse ($items as $item)
+                    <div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item women">
+                        <!-- Block2 -->
+                        <div class="block2">
+                            <div class="block2-pic hov-img0">
+                                <img src="{{ $item->gambar() }}" alt="IMG-PRODUCT">
 
-                            <a href="{{ route('produk.show', 12312) }}"
-                                class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04">
-                                Lihat Detail
-                            </a>
-                        </div>
-
-                        <div class="block2-txt flex-w flex-t p-t-14">
-                            <div class="block2-txt-child1 flex-col-l ">
-                                <a href="product-detail.html" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
-                                    Esprit Ruffle Shirt
+                                <a href="{{ route('produk.show', $item->slug) }}"
+                                    class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04">
+                                    Lihat Detail
                                 </a>
-
-                                <span class="stext-105 cl3">
-                                    $16.64
-                                </span>
                             </div>
 
-                            <div class="block2-txt-child2 flex-r p-t-3">
-                                <a href="#" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
-                                    <img class="icon-heart1 dis-block trans-04"
-                                        src="{{ asset('assets/frontend') }}/images/icons/icon-heart-01.png" alt="ICON">
-                                    <img class="icon-heart2 dis-block trans-04 ab-t-l"
-                                        src="{{ asset('assets/frontend') }}/images/icons/icon-heart-02.png" alt="ICON">
-                                </a>
+                            <div class="block2-txt flex-w flex-t p-t-14">
+                                <div class="block2-txt-child1 flex-col-l ">
+                                    <a href="product-detail.html" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
+                                        {{ $item->nama }}
+                                    </a>
+
+                                    <span class="stext-105 cl3">
+                                        {{ format_rupiah($item->harga) }}
+                                    </span>
+                                </div>
+
+                                <div class="block2-txt-child2 flex-r p-t-3">
+                                    <a href="#" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-
+                @empty
+                    <div class="col-md-12">
+                        <p class="text-center">Tidak Ada Produk!</p>
+                    </div>
+                @endforelse
             </div>
 
-            <!-- Load more -->
-            <div class="flex-c-m flex-w w-full p-t-45">
-                <a href="#" class="flex-c-m stext-101 cl5 size-103 bg2 bor1 hov-btn1 p-lr-15 trans-04">
-                    Load More
-                </a>
-            </div>
+            {{ $items->links('pagination::simple-bootstrap-4') }}
+
         </div>
     </div>
 @endsection

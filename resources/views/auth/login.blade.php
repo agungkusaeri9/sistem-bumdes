@@ -5,7 +5,7 @@
 @section('content')
     <div class="login-box">
         <div class="login-logo">
-            <a href=""><b>System</b> Login</a>
+            <a href="{{ route('home') }}"><b> Login</a>
         </div>
         <!-- /.login-logo -->
         <div class="card">
@@ -42,7 +42,7 @@
                             </div>
                         @enderror
                     </div>
-                    <div class="row">
+                    <div class="row mb-3">
                         <div class="col-8">
                             <div class="icheck-primary">
                                 <input type="checkbox" id="remember" name="rememberme">
@@ -57,6 +57,7 @@
                         </div>
                         <!-- /.col -->
                     </div>
+                    <p>Belum punya akun ? <a href="{{ route('register') }}">Register</a></p>
                 </form>
             </div>
             <!-- /.login-card-body -->
