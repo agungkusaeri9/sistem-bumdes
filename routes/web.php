@@ -41,7 +41,7 @@ Route::controller(ProdukController::class)->group(function () {
     Route::get('/produk/jenis/{slug}', 'jenis')->name('produk.jenis');
 });
 
-Route::middleware('auth')->controller(KeranjangController::class)->group(function () {
+Route::middleware(['status_aktif', 'auth'])->controller(KeranjangController::class)->group(function () {
     Route::get('/cart', 'index')->name('keranjang.index');
     Route::post('/cart', 'store')->name('keranjang.store');
     Route::delete('/cart/{id}', 'destroy')->name('keranjang.destroy');

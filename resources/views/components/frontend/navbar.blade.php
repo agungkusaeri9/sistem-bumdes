@@ -11,11 +11,7 @@
 
                  <div class="right-top-bar flex-w h-full">
                      @auth
-                         @if (auth()->user()->role === 'admin')
-                             <a href="{{ route('admin.dashboard') }}" class="flex-c-m trans-04 p-lr-25">
-                                 Dashboard
-                             </a>
-                         @else
+                         @if (auth()->user()->role === 'pembeli')
                              <a href="{{ route('transaksi.index') }}" class="flex-c-m trans-04 p-lr-25">
                                  Transaksi
                              </a>
@@ -25,6 +21,10 @@
                              <a href="javascript:void(0)" onclick="document.getElementById('formLogout').submit()"
                                  class="flex-c-m trans-04 p-lr-25">
                                  Logout
+                             </a>
+                         @else
+                             <a href="{{ route('admin.dashboard') }}" class="flex-c-m trans-04 p-lr-25">
+                                 Dashboard
                              </a>
                          @endif
                      @else

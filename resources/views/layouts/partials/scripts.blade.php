@@ -193,6 +193,8 @@
         });
     })
 </script>
+
+<script src="{{ asset('assets/sweetalert2/sweetalert2.min.js') }}"></script>
 <!--===============================================================================================-->
 <script src="{{ asset('assets/frontend') }}/vendor/daterangepicker/moment.min.js"></script>
 <script src="{{ asset('assets/frontend') }}/vendor/daterangepicker/daterangepicker.js"></script>
@@ -274,6 +276,5 @@
         })
     });
 </script>
-<!--===============================================================================================-->
 <script src="{{ asset('assets/frontend') }}/js/main.js"></script>
 @stack('scripts')

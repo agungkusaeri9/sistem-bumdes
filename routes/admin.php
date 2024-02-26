@@ -25,32 +25,34 @@ Route::post('/profile', [ProfileController::class, 'update'])->name('profile.upd
 Route::get('/change-password', [ChangePasswordController::class, 'index'])->name('change-password.index');
 Route::post('/change-password', [ChangePasswordController::class, 'update'])->name('change-password.update');
 
-Route::resource('users', UserController::class)->except('show');
-Route::resource('jenis', JenisController::class)->except('show');
-Route::resource('jabatan', JabatanController::class)->except('show');
-Route::resource('pengurus', PengurusController::class)->except('show');
-Route::resource('satuan', SatuanController::class)->except('show');
-Route::resource('metode-pembayaran', MetodePembayaranController::class)->except('show');
-Route::resource('kurir', KurirController::class)->except('show');
-Route::resource('produk', ProdukController::class)->except('show');
-Route::controller(GaleriProdukController::class)->name('galeri-produk.')->group(function () {
-    Route::get('/galeri-produk/{id}', 'index')->name('index');
-    Route::post('/galeri-produk/{id}', 'store')->name('store');
-    Route::delete('/galeri-produk/{id}', 'destroy')->name('destroy');
+// role admin
+Route::middleware('cek_role:admin')->group(function () {
+    Route::resource('users', UserController::class)->except('show');
+    Route::resource('jenis', JenisController::class)->except('show');
+    Route::resource('jabatan', JabatanController::class)->except('show');
+    Route::resource('pengurus', PengurusController::class)->except('show');
+    Route::resource('satuan', SatuanController::class)->except('show');
+    Route::resource('metode-pembayaran', MetodePembayaranController::class)->except('show');
+    Route::resource('kurir', KurirController::class)->except('show');
+    Route::resource('produk', ProdukController::class)->except('show');
+    Route::controller(GaleriProdukController::class)->name('galeri-produk.')->group(function () {
+        Route::get('/galeri-produk/{id}', 'index')->name('index');
+        Route::post('/galeri-produk/{id}', 'store')->name('store');
+        Route::delete('/galeri-produk/{id}', 'destroy')->name('destroy');
+    });
+
+    Route::controller(StokProdukController::class)->name('stok-produk.')->group(function () {
+        Route::get('/stok-produk', 'index')->name('index');
+        Route::post('/stok-produk', 'store')->name('store');
+        Route::delete('/stok-produk/{id}', 'destroy')->name('destroy');
+    });
+
+    Route::resource('transaksi', TransaksiController::class);
 });
-
-Route::controller(StokProdukController::class)->name('stok-produk.')->group(function () {
-    Route::get('/stok-produk', 'index')->name('index');
-    Route::post('/stok-produk', 'store')->name('store');
-    Route::delete('/stok-produk/{id}', 'destroy')->name('destroy');
-});
-
-
-Route::resource('transaksi', TransaksiController::class);
 
 Route::controller(LaporanController::class)->name('laporan.')->group(function () {
-    Route::get('/laporan/transaksi', 'transaksi_index')->name('transaksi.index');
-    Route::post('/laporan/transaksi', 'transaksi_print')->name('transaksi.print');
+    Route::get('/laporan/transaksi', 'transaksi_index')->name('transaksi.index')->middleware('cek_role:admin');
+    Route::post('/laporan/transaksi', 'transaksi_print')->name('transaksi.print')->middleware('cek_role:admin');
     Route::get('/laporan/keuangan', 'keuangan_index')->name('keuangan.index');
     Route::post('/laporan/keuangan', 'keuangan_print')->name('keuangan.print');
 });

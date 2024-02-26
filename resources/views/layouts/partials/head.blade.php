@@ -1,4 +1,4 @@
-<title>Home</title>
+<title>{{ $title ?? 'Selamat datang di website kami' }}</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->
@@ -22,7 +22,8 @@
 <!--===============================================================================================-->
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/frontend') }}/vendor/select2/select2.min.css">
 <!--===============================================================================================-->
-<link rel="stylesheet" type="text/css" href="{{ asset('assets/frontend') }}/vendor/daterangepicker/daterangepicker.css">
+<link rel="stylesheet" type="text/css"
+    href="{{ asset('assets/frontend') }}/vendor/daterangepicker/daterangepicker.css">
 <!--===============================================================================================-->
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/frontend') }}/vendor/slick/slick.css">
 <!--===============================================================================================-->
@@ -35,5 +36,7 @@
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/frontend') }}/css/main.css">
 <link rel="stylesheet" href="{{ asset('assets/plugins/fontawesome-free/css/all.css') }}">
 <!--===============================================================================================-->
+<link rel="stylesheet" href="{{ asset('assets/sweetalert2/sweetalert2.all.min.js') }}">
+<link rel="stylesheet" href="{{ asset('assets/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css') }}">
 @stack('styles')
 @vite('resources/js/app.js')
