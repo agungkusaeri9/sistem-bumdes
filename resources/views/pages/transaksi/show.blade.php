@@ -50,6 +50,10 @@
                             <div class="col-md">
                                 <table class="table table-bordered">
                                     <tr>
+                                        <th>Sub Total</th>
+                                        <td>{{ format_rupiah($item->sub_total) }}</td>
+                                    </tr>
+                                    <tr>
                                         <th>Ongkos Kirim</th>
                                         <td>{{ format_rupiah($item->ongkos_kirim) }}</td>
                                     </tr>

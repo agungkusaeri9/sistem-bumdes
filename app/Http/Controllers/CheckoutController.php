@@ -33,6 +33,7 @@ class CheckoutController extends Controller
                 'alamat' => request('alamat'),
                 'total_bayar' => request('total_bayar'),
                 'kurir' => request('kurir'),
+                'sub_total' => $carts->sum('total_harga'),
                 'ongkos_kirim' => request('ongkos_kirim'),
                 'metode_pembayaran_id' => request('metode_pembayaran_id'),
                 'province_id' => request('provinsi_id'),

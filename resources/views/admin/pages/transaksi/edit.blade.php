@@ -110,9 +110,8 @@
                                                 <th>Bukti Pembayaran</th>
                                                 <td>
                                                     @if ($item->bukti_pembayaran)
-                                                        <a href="{{ route('admin.items.download', $item->id) }}"
-                                                            class="btn btn-sm btn-success"><i class="fas fa-download"></i>
-                                                            Download</a>
+                                                        <a href="{{ asset('storage/' . $item->bukti_pembayaran) }}"
+                                                            target="_blank" class="btn btn-info btn-sm">Lihat</a>
                                                     @else
                                                         Tidak Ada
                                                     @endif

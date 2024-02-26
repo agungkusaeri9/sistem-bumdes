@@ -84,6 +84,10 @@
                                             <td>{{ $item->nomor_resi }}</td>
                                         </tr>
                                         <tr>
+                                            <th>Sub Total</th>
+                                            <td>Rp. {{ number_format($item->sub_total) }}</td>
+                                        </tr>
+                                        <tr>
                                             <th>Ongkos Kirim</th>
                                             <td>Rp. {{ number_format($item->ongkos_kirim) }}</td>
                                         </tr>

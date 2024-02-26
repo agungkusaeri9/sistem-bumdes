@@ -51,4 +51,6 @@ Route::resource('transaksi', TransaksiController::class);
 Route::controller(LaporanController::class)->name('laporan.')->group(function () {
     Route::get('/laporan/transaksi', 'transaksi_index')->name('transaksi.index');
     Route::post('/laporan/transaksi', 'transaksi_print')->name('transaksi.print');
+    Route::get('/laporan/keuangan', 'keuangan_index')->name('keuangan.index');
+    Route::post('/laporan/keuangan', 'keuangan_print')->name('keuangan.print');
 });
