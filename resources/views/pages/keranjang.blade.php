@@ -31,8 +31,13 @@
                                 <th class="column-5">Total</th>
                                 <th class="column-6">Aksi</th>
                             </tr>
-
+                            @php
+                                $weight = 0;
+                            @endphp
                             @foreach ($items as $item)
+                                @php
+                                    $weight = $weight + $item->produk->berat * $item->jumlah;
+                                @endphp
                                 <tr class="table_row">
                                     <td class="column-1">
                                         <div class="how-itemcart1">
@@ -55,11 +60,13 @@
 
                         </table>
                     </div>
-                    <form class="bg0 p-t-75 p-b-85" action="{{ route('checkout') }}" method="post">
+                    <form class="bg0 p-t-75 p-b-85" action="{{ route('checkout') }}" method="post" id="formCheckout">
                         <div class="card mt-4">
                             <div class="card-body">
                                 <h4 class="mb-4">Form Pemesanan</h4>
                                 @csrf
+                                <input type="number" name="weight" id="weight" value="{{ $weight }}" hidden>
+                                <input type="number" name="total_bayar">
                                 <div class='form-group mb-3'>
                                     <label for='nama' class='mb-2'>Nama</label>
                                     <input type='text' name='nama'
@@ -137,12 +144,12 @@
                                     @enderror
                                 </div>
                                 <div class='form-group'>
-                                    <label for='jenis_paket'>Jenis</label>
-                                    <select name='jenis_paket' id='jenis_paket'
-                                        class='form-control @error('jenis_paket') is-invalid @enderror'>
+                                    <label for='ongkos_kirim'>Jenis</label>
+                                    <select name='ongkos_kirim' id='ongkos_kirim'
+                                        class='form-control @error('ongkos_kirim') is-invalid @enderror'>
                                         <option value='' selected disabled>Pilih Jenis</option>
                                     </select>
-                                    @error('jenis_paket')
+                                    @error('ongkos_kirim')
                                         <div class='invalid-feedback'>
                                             {{ $message }}
                                         </div>
@@ -164,10 +171,6 @@
                                         </div>
                                     @enderror
                                 </div>
-                                <button
-                                    class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer">
-                                    Proceed to Checkout
-                                </button>
                             </div>
                         </div>
                     </form>
@@ -194,37 +197,36 @@
                             </span>
                         </div>
                     </div>
-                    {{--
-                        <div class="flex-w flex-t bor12 p-t-15 p-b-30">
-                            <div class="size-208 w-full-ssm">
-                                <span class="stext-110 cl2">
-                                    Shipping:
-                                </span>
-                            </div>
-
-                            <div class="size-209 p-r-18 p-r-0-sm w-full-ssm">
-                                <p class="stext-111 cl6 p-t-2">
-                                    There are no shipping methods available. Please double check your address, or contact us
-                                    if you need any help.
-                                </p>
-                            </div>
-                        </div> --}}
 
                     <div class="flex-w flex-t p-t-27 p-b-33">
                         <div class="size-208">
                             <span class="mtext-101 cl2">
-                                Total:
+                                Ongkos Kirim:
                             </span>
                         </div>
 
                         <div class="size-209 p-t-1">
                             <span class="mtext-110 cl2">
-                                $79.65
+                                <div id="ongkir"></div>
                             </span>
                         </div>
                     </div>
 
-                    <button class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer">
+                    <div class="flex-w flex-t p-t-27 p-b-33">
+                        <div class="size-208">
+                            <span class="mtext-101 cl2">
+                                Total Bayar:
+                            </span>
+                        </div>
+
+                        <div class="size-209 p-t-1">
+                            <span class="mtext-110 cl2">
+                                <div id="total_bayar"></div>
+                            </span>
+                        </div>
+                    </div>
+
+                    <button class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 btnCheckout">
                         Proceed to Checkout
                     </button>
                 </div>
@@ -235,6 +237,16 @@
 @push('scripts')
     <script>
         $(function() {
+
+            function formatRupiah(angka) {
+                var formatter = new Intl.NumberFormat('id-ID', {
+                    style: 'currency',
+                    currency: 'IDR',
+                    minimumFractionDigits: 0
+                });
+
+                return formatter.format(angka);
+            }
 
             $('#provinsi_id').on('change', function() {
                 let provinsi_id = $(this).val();
@@ -263,16 +275,30 @@
             $('#kurir').on('change', function() {
                 let kurir_code = $(this).val();
                 let kota_id = $('#kota_id').val();
+                let weight = $('#weight').val();
+                console.log(kota_id);
                 $.ajax({
                     url: '{{ route('cek-ongkir') }}',
                     type: 'GET',
                     dataType: 'JSON',
                     data: {
-                        kurir_code: kurir_code,
-                        kota_id: kota_id
+                        courier: kurir_code,
+                        destination: kota_id,
+                        weight: weight
                     },
                     success: function(res) {
-                        console.log(res);
+                        console.log(res.rajaongkir.results[0].costs);
+                        let costs = res.rajaongkir.results[0].costs;
+                        if (costs.length > 0) {
+                            $('#ongkos_kirim').empty();
+                            $('#ongkos_kirim').append(
+                                `<option selected disabled>Pilih Jenis</option>`);
+                            costs.forEach(cost => {
+                                $('#ongkos_kirim').append(
+                                    `<option value="${cost.cost[0].value}">${cost.service} ${cost.description} | ${cost.cost[0].value} Est: ${cost.cost[0].etd} </option>`
+                                );
+                            });
+                        }
                     },
                     error: function(xhr, status, errorThrown) {
                         console.log("Error Status:", status);
@@ -282,9 +308,23 @@
                 });
 
             })
-            // $('.checkout').on('click', function() {
-            //     $('#formCheckout').submit();
-            // })
+
+            $('#ongkos_kirim').on('change', function() {
+                let ongkir = $(this).val();
+                $('#ongkir').html(formatRupiah(ongkir));
+
+                let sub_total = '{{ $items->sum('total_harga') }}';
+                // total bayar
+                let total_bayar = parseInt(ongkir) + parseInt(sub_total);
+                $('input[name=total_bayar]').val(total_bayar);
+
+                $('#total_bayar').html(formatRupiah(total_bayar));
+
+            })
+
+            $('.btnCheckout').on('click', function() {
+                $('#formCheckout').submit();
+            })
         })
     </script>
 @endpush

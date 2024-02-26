@@ -15,7 +15,7 @@ class CheckoutController extends Controller
             'nama' => ['required'],
             'alamat' => ['required'],
             'nomor_hp' => ['required'],
-            // 'ongkos_kirim' => ['required'],
+            'ongkos_kirim' => ['required'],
             'kurir' => ['required'],
             'provinsi_id' => ['required'],
             'kota_id' => ['required'],
@@ -26,16 +26,14 @@ class CheckoutController extends Controller
         DB::beginTransaction();
         try {
             $carts = Keranjang::where('user_id', auth()->id())->get();
-            $ongkos_kirim = 100000;
-            $total_bayar = $carts->sum('total_harga') + $ongkos_kirim;
             $transaction = auth()->user()->transaksi()->create([
                 'uuid' => \Str::uuid(),
                 'nama' => request('nama'),
                 'nomor_hp' => request('nomor_hp'),
                 'alamat' => request('alamat'),
-                'total_bayar' => $total_bayar,
+                'total_bayar' => request('total_bayar'),
                 'kurir' => request('kurir'),
-                'ongkos_kirim' => $ongkos_kirim,
+                'ongkos_kirim' => request('ongkos_kirim'),
                 'metode_pembayaran_id' => request('metode_pembayaran_id'),
                 'province_id' => request('provinsi_id'),
                 'city_id' => request('kota_id'),

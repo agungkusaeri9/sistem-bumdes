@@ -49,11 +49,16 @@ class PageController extends Controller
 
     public function cek_ongkir()
     {
-        // $destination = request('kota_id');
-        // $weight = 1000;
-        // $courier = 'jne';
-        // $result = Rajaongkir::
-        // return response()->json($result);
+        $destination = request('destination');
+        $weight = request('weight');
+        $courier = request('courier');
+        $result = $this->ongkirService->checkOngkir(
+            $destination,
+            $weight,
+            $courier
+        );
+
+        return response()->json($result);
     }
 
     public function getKotaByProvinsiId()

@@ -39,9 +39,8 @@ class KeranjangController extends Controller
         try {
             $produk = Produk::findOrFail(request('produk_id'));
 
-            if($produk->stok < request('jumlah'))
-            {
-                return redirect()->back()->with('warning','Stok produk tidak mencukupi.');
+            if ($produk->stok < request('jumlah')) {
+                return redirect()->back()->with('warning', 'Stok produk tidak mencukupi.');
             }
             keranjang::create([
                 'produk_id' => $produk->id,
@@ -65,6 +64,6 @@ class KeranjangController extends Controller
     {
         $item = Keranjang::findOrFail($id);
         $item->delete();
-        return redirect()->back()->with('success','Produk berhasil dihapus dari keranjang.');
-        }
+        return redirect()->back()->with('success', 'Produk berhasil dihapus dari keranjang.');
+    }
 }

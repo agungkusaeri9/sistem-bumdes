@@ -3,46 +3,40 @@
 namespace App\Services;
 
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\GuzzleException;
 
 class OngkirService
 {
     protected $client;
-    protected $dari;
+    protected $apiKey;
+    protected $origin;
 
     public function __construct()
     {
         $this->client = new Client();
-        $this->dari = env('RAJAONGKIR_ORIGIN');
+        $this->apiKey = env('RAJAONGKIR_API_KEY');
+        $this->origin = env("RAJAONGKIR_ORIGIN");
     }
 
-    public function cekOngkir($tujuan,$berat,$kurir)
+    public function checkOngkir($destination, $weight, $courier)
     {
-        $curl = curl_init();
-        curl_setopt_array($curl, array(
-          CURLOPT_URL => "https://api.rajaongkir.com/".env('RAJAONGKIR_PACKAGE')."/cost",
-          CURLOPT_RETURNTRANSFER => true,
-          CURLOPT_ENCODING => "",
-          CURLOPT_MAXREDIRS => 10,
-          CURLOPT_TIMEOUT => 30,
-          CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-          CURLOPT_CUSTOMREQUEST => "POST",
-          CURLOPT_POSTFIELDS => "origin=$this->dari&destination=$tujuan&weight=$berat&courier=$kurir",
-          CURLOPT_HTTPHEADER => array(
-            "content-type: application/x-www-form-urlencoded",
-            "key: " . env('RAJAONGKIR_API_KEY')
-          ),
-        ));
+        try {
+            $response = $this->client->post('https://api.rajaongkir.com/starter/cost', [
+                'headers' => [
+                    'key' => $this->apiKey,
+                    'content-type' => 'application/x-www-form-urlencoded',
+                ],
+                'form_params' => [
+                    'origin' => $this->origin,
+                    'destination' => $destination,
+                    'weight' => $weight,
+                    'courier' => $courier,
+                ],
+            ]);
 
-        $response = curl_exec($curl);
-        $err = curl_error($curl);
-
-        curl_close($curl);
-
-        if ($err) {
-          echo "cURL Error #:" . $err;
-        } else {
-          echo $response;
+            return json_decode($response->getBody()->getContents(), true);
+        } catch (GuzzleException $e) {
+            return ['error' => $e->getMessage()];
         }
-
     }
 }
