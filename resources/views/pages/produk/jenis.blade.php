@@ -3,18 +3,12 @@
     <!-- Product -->
     <div class="bg0 m-t-23 p-b-140" style="margin-top: 120px">
         <div class="container">
-            @if (request('keyword'))
-                <div class="row">
-                    <div class="col-md-12">
-                        <h4>Pencarian : {{ request('keyword') }}</h4>
-                    </div>
-                </div>
-            @endif
             <div class="flex-w flex-sb-m p-b-52">
                 <div class="flex-w flex-l-m filter-tope-group m-tb-10">
-                    <button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 how-active1" data-filter="*">
+                    <a class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 how-active1" data-filter="*"
+                        href="{{ route('produk.index') }}">
                         Semua Produk
-                    </button>
+                    </a>
 
                     @foreach ($data_jenis as $jenis)
                         <a href="{{ route('produk.jenis', \Str::slug($jenis->nama)) }}"

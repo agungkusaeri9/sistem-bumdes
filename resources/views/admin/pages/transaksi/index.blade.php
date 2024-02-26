@@ -27,7 +27,7 @@
                             <!-- /.card-header -->
                             <div class="card-body">
                                 <div class="table-responsive">
-                                    <table class="table table-bordered table-striped nowrap" id="data">
+                                    <table class="table table-bordered nowrap" id="data">
                                         <thead>
                                             <tr>
                                                 <th width=10>No</th>
@@ -61,14 +61,17 @@
                                                         </a>
                                                         <a href="{{ route('admin.transaksi.edit', $item->uuid) }}"
                                                             class="btn btn-sm btn-info"><i class="fas fa-edit"></i></a>
-                                                        <form action="{{ route('admin.transaksi.destroy', $item->uuid) }}"
-                                                            method="post" class="d-inline">
-                                                            @csrf
-                                                            @method('delete')
-                                                            <button class="btn btn-sm btn-danger"
-                                                                onclick="return confirm('Apakah anda yakin?')"><i
-                                                                    class="fas fa-trash"></i></button>
-                                                        </form>
+                                                        @if ($item->status === 'PENDING' || $item->status === 'GAGAL')
+                                                            <form
+                                                                action="{{ route('admin.transaksi.destroy', $item->uuid) }}"
+                                                                method="post" class="d-inline">
+                                                                @csrf
+                                                                @method('delete')
+                                                                <button class="btn btn-sm btn-danger"
+                                                                    onclick="return confirm('Apakah anda yakin?')"><i
+                                                                        class="fas fa-trash"></i></button>
+                                                            </form>
+                                                        @endif
                                                     </td>
                                                 </tr>
                                             @endforeach

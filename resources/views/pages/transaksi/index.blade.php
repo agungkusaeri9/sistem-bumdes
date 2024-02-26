@@ -21,6 +21,7 @@
                                     <thead>
                                         <tr>
                                             <th>No</th>
+                                            <th>Tanggal</th>
                                             <th>Nama</th>
                                             <th>Nomor HP</th>
                                             <th>Alamat</th>
@@ -35,6 +36,7 @@
                                         @foreach ($items as $item)
                                             <tr>
                                                 <td>{{ $loop->iteration }}</td>
+                                                <td>{{ $item->created_at->translatedFormat('d/m/Y') }}</td>
                                                 <td>{{ $item->nama }}</td>
                                                 <td>{{ $item->nomor_hp }}</td>
                                                 <td>{{ $item->alamat }}</td>

@@ -24,4 +24,18 @@ class TransaksiController extends Controller
             'item' => $item
         ]);
     }
+
+    public function upload_bukti($uuid)
+    {
+        request()->validate([
+            'bukti_pembayaran' => ['required','image','mimes:png,jpg,jpeg','max:2048']
+        ]);
+
+        $item = Transaksi::where('uuid',$uuid)->firstOrFail();
+        $item->update([
+            'bukti_pembayaran' => request()->file('bukti_pembayaran')->store('bukti-pembayaran','public')
+        ]);
+
+        return redirect()->back()->with('success','Bukti Pembayaran berhasil diupload.');
+    }
 }

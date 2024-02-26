@@ -116,8 +116,8 @@
                                         <tr>
                                             <th>Aksi</th>
                                             <td>
-
-                                            </td>
+                                                <a href="{{ route('admin.transaksi.index') }}" class="btn btn-warning">Kembali</a>
+                                        </td>
                                         </tr>
                                     </table>
                                 </div>

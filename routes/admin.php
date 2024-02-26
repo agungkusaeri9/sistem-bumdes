@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\GaleriProdukController;
 use App\Http\Controllers\Admin\JenisController;
 use App\Http\Controllers\Admin\KurirController;
+use App\Http\Controllers\Admin\LaporanController;
 use App\Http\Controllers\Admin\MetodePembayaranController;
 use App\Http\Controllers\Admin\ProdukController;
 use App\Http\Controllers\Admin\ProfileController;
@@ -42,3 +43,8 @@ Route::controller(StokProdukController::class)->name('stok-produk.')->group(func
 
 
 Route::resource('transaksi', TransaksiController::class);
+
+Route::controller(LaporanController::class)->name('laporan.')->group(function(){
+    Route::get('/laporan/transaksi', 'transaksi_index')->name('transaksi.index');
+    Route::post('/laporan/transaksi', 'transaksi_print')->name('transaksi.print');
+});

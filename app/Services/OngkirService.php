@@ -7,30 +7,42 @@ use GuzzleHttp\Client;
 class OngkirService
 {
     protected $client;
+    protected $dari;
 
     public function __construct()
     {
         $this->client = new Client();
+        $this->dari = env('RAJAONGKIR_ORIGIN');
     }
 
-    public function checkOngkir($courier, $origin, $destination, $weight)
+    public function cekOngkir($tujuan,$berat,$kurir)
     {
-        $response = $this->client->request('GET', 'https://api.binderbyte.com/v1/cost', [
-            'query' => [
-                'api_key' => env('API_KEY_BINDERBYTE'),
-                'courier' => $courier,
-                'origin' => $origin,
-                'destination' => $destination,
-                'weight' => $weight
-            ]
-        ]);
+        $curl = curl_init();
+        curl_setopt_array($curl, array(
+          CURLOPT_URL => "https://api.rajaongkir.com/".env('RAJAONGKIR_PACKAGE')."/cost",
+          CURLOPT_RETURNTRANSFER => true,
+          CURLOPT_ENCODING => "",
+          CURLOPT_MAXREDIRS => 10,
+          CURLOPT_TIMEOUT => 30,
+          CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+          CURLOPT_CUSTOMREQUEST => "POST",
+          CURLOPT_POSTFIELDS => "origin=$this->dari&destination=$tujuan&weight=$berat&courier=$kurir",
+          CURLOPT_HTTPHEADER => array(
+            "content-type: application/x-www-form-urlencoded",
+            "key: " . env('RAJAONGKIR_API_KEY')
+          ),
+        ));
 
-        if ($response->getStatusCode() == 200) {
-            $body = $response->getBody();
-            $data = json_decode($body, true);
-            return $data;
+        $response = curl_exec($curl);
+        $err = curl_error($curl);
+
+        curl_close($curl);
+
+        if ($err) {
+          echo "cURL Error #:" . $err;
+        } else {
+          echo $response;
         }
 
-        return null;
     }
 }

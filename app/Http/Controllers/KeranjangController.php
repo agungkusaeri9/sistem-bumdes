@@ -38,6 +38,11 @@ class KeranjangController extends Controller
 
         try {
             $produk = Produk::findOrFail(request('produk_id'));
+
+            if($produk->stok < request('jumlah'))
+            {
+                return redirect()->back()->with('warning','Stok produk tidak mencukupi.');
+            }
             keranjang::create([
                 'produk_id' => $produk->id,
                 'user_id' => auth()->id(),
@@ -55,4 +60,11 @@ class KeranjangController extends Controller
             return redirect()->route('keranjang.index')->with('error', $th->getMessage());
         }
     }
+
+    public function destroy($id)
+    {
+        $item = Keranjang::findOrFail($id);
+        $item->delete();
+        return redirect()->back()->with('success','Produk berhasil dihapus dari keranjang.');
+        }
 }

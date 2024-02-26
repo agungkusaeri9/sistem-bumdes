@@ -2,13 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Jenis;
 use App\Models\Kecamatan;
 use App\Models\Keranjang;
 use App\Models\Kota;
 use App\Models\Kurir;
+use App\Models\Produk;
 use App\Services\OngkirService;
 use Dipantry\Rajaongkir\Constants\RajaongkirCourier;
 use Dipantry\Rajaongkir\Rajaongkir;
+use Dipantry\Rajaongkir\RajaongkirService;
 use Illuminate\Http\Request;
 
 class PageController extends Controller
@@ -22,8 +25,13 @@ class PageController extends Controller
 
     public function home()
     {
+        $keyword = request('keyword');
+        $items = Produk::latest()->paginate(16);
+        $data_jenis = Jenis::orderBy('nama', 'ASC')->get();
         return view('pages.home', [
-            'title' => 'Home'
+            'title' => 'Selamat datang di website kami',
+            'items' => $items,
+            'data_jenis' => $data_jenis
         ]);
     }
     public function contact()
@@ -41,18 +49,11 @@ class PageController extends Controller
 
     public function cek_ongkir()
     {
-        $origin = 456;
-        $destination = request('kota_id');
-        $weight = 1000;
-        $courier = 'jne';
-        $result = \Dipantry\Rajaongkir\Rajaongkir::getOngkirCost(
-            $origin = 1,
-            $destination = 200,
-            $weight = 300,
-            $courier = 'jne'
-        );
-
-        return response()->json($result);
+        // $destination = request('kota_id');
+        // $weight = 1000;
+        // $courier = 'jne';
+        // $result = Rajaongkir::
+        // return response()->json($result);
     }
 
     public function getKotaByProvinsiId()

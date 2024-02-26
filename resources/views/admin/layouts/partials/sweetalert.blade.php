@@ -13,7 +13,17 @@
         Swal.fire({
             position: 'center',
             icon: 'error',
-            title: '{{ session('error') }}',
+            text: '{{ session('error') }}',
+            showConfirmButton: true,
+            timer: 1500
+        })
+    </script>
+@elseif(session('warning'))
+    <script>
+        Swal.fire({
+            position: 'center',
+            icon: 'warning',
+            text: '{{ session('warning') }}',
             showConfirmButton: true,
             timer: 1500
         })

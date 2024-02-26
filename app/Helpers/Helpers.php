@@ -14,3 +14,10 @@ function format_rupiah($angka)
     }
     return $hasil_rupiah;
 }
+
+
+function format_tanggal($tanggal, $format = 'd-m-Y') {
+    $timestamp = strtotime($tanggal);
+    $tanggalFormatted = date($format, $timestamp);
+    return $tanggalFormatted;
+}

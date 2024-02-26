@@ -21,4 +21,9 @@ class DetailTransaksi extends Model
     {
         return $this->belongsTo(Produk::class);
     }
+
+    public function ulasan()
+    {
+        return $this->hasOne(ProdukUlasan::class,'detail_transaksi_id','id');
+    }
 }

@@ -30,4 +30,9 @@ class Produk extends Model
     {
         return asset('storage/' . $this->gambar);
     }
+
+    public function ulasan()
+    {
+        return $this->hasMany(ProdukUlasan::class,'produk_id','id');
+    }
 }
