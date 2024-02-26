@@ -33,7 +33,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($items as $item)
+                                        @forelse ($items as $item)
                                             <tr>
                                                 <td>{{ $loop->iteration }}</td>
                                                 <td>{{ $item->created_at->translatedFormat('d/m/Y') }}</td>
@@ -50,7 +50,11 @@
                                                         class="btn btn-warning">Detail</a>
                                                 </td>
                                             </tr>
-                                        @endforeach
+                                        @empty
+                                            <tr>
+                                                <td colspan="10" class="text-center">Tidak Ada Transaksi</td>
+                                            </tr>
+                                        @endforelse
                                     </tbody>
                                 </table>
                             </div>

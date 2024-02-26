@@ -30,14 +30,20 @@
                                         <th>Alamat</th>
                                         <td>{{ $item->alamat }}</td>
                                     </tr>
-
                                     <tr>
                                         <th>Kurir</th>
                                         <td>{{ $item->kurir }}</td>
                                     </tr>
                                     <tr>
-                                        <th>Nomor Resi</th>
-                                        <td>{{ $item->nomor_resi }}</td>
+                                        <th>Lacak Pengiriman</th>
+                                        <td>
+                                            @if ($item->nomor_resi)
+                                                <a href="{{ route('tracking', $item->uuid) }}"
+                                                    class="btn btn-info">Lacak</a>
+                                            @else
+                                                <i>Nomor Resi Tidak Tersedia</i>
+                                            @endif
+                                        </td>
                                     </tr>
                                 </table>
                             </div>
