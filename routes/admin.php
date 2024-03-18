@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\GaleriProdukController;
 use App\Http\Controllers\Admin\JabatanController;
 use App\Http\Controllers\Admin\JenisController;
+use App\Http\Controllers\Admin\KeuanganController;
 use App\Http\Controllers\Admin\KurirController;
 use App\Http\Controllers\Admin\LaporanController;
 use App\Http\Controllers\Admin\MetodePembayaranController;
@@ -48,6 +49,7 @@ Route::middleware('cek_role:admin')->group(function () {
     });
 
     Route::resource('transaksi', TransaksiController::class);
+    Route::resource('keuangan', KeuanganController::class)->only(['index', 'create', 'store']);
 });
 
 Route::controller(LaporanController::class)->name('laporan.')->group(function () {

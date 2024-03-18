@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Keuangan;
 use App\Models\Transaksi;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
@@ -53,11 +54,11 @@ class LaporanController extends Controller
 
     public function keuangan_print()
     {
-        $transaksi = Transaksi::latest();
+        $transaksi = Keuangan::latest();
         $bulan = request('bulan');
         $tahun = request('tahun');
 
-        $data = $transaksi->where('status', 'SELESAI')->latest();
+        $data = $transaksi->latest();
 
         if ($bulan && $tahun) {
             $data->whereMonth('created_at', $bulan)->whereYear('created_at', $tahun);

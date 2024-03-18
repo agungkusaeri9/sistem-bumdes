@@ -60,6 +60,14 @@
                         </a>
                     </li>
                     <li class="nav-item">
+                        <a href="{{ route('admin.keuangan.index') }}" class="nav-link">
+                            <i class="nav-icon fas fa-box-open"></i>
+                            <p>
+                                Keuangan
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a href="{{ route('admin.pengurus.index') }}" class="nav-link">
                             <i class="nav-icon fas fa-users"></i>
                             <p>

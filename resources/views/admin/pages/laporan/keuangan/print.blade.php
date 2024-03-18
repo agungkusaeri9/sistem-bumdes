@@ -61,7 +61,8 @@
                         <th>No</th>
                         <th>Bulan</th>
                         <th>Keterangan</th>
-                        <th>Pemasukan</th>
+                        <th>Jenis</th>
+                        <th>Nominal</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -69,10 +70,36 @@
                         <tr>
                             <td style="width: 10px">{{ $loop->iteration }}</td>
                             <td>{{ $item->created_at->translatedFormat('F Y') }}</td>
-                            <td>Penjualan Produk</td>
-                            <td>{{ format_rupiah($item->sub_total) }}</td>
+                            <td>{{ $item->keterangan }}</td>
+                            <td>{{ $item->jenis }}</td>
+                            <td>{{ format_rupiah($item->nominal) }}</td>
                         </tr>
                     @endforeach
+
+                    <tr>
+                        <td colspan="4" class="text-center font-weight-bold">
+                            Pemasukan
+                        </td>
+                        <td>
+                            {{ format_rupiah($items->where('jenis', 'pemasukan')->sum('nominal')) }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="4" class="text-center font-weight-bold">
+                            Pengeluaran
+                        </td>
+                        <td>
+                            {{ format_rupiah($items->where('jenis', 'pengeluaran')->sum('nominal')) }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="4" class="text-center font-weight-bold">
+                            Total
+                        </td>
+                        <td>
+                            {{ format_rupiah($items->sum('nominal')) }}
+                        </td>
+                    </tr>
                 </tbody>
             </table>
         </section>
