@@ -16,22 +16,14 @@ class Transaksi extends Model
         return $this->hasMany(DetailTransaksi::class);
     }
 
-    public function user(){
+    public function user()
+    {
         return $this->belongsTo(User::class);
     }
 
     public function status()
     {
-        if ($this->status === 'PENDING') {
-            return '<span class="badge badge-warning">PENDING</span>';
-        } elseif ($this->status === 'DIKIRIM') {
-
-            return '<span class="badge badge-info">DIKIRIM</span>';
-        } elseif ($this->status === 'SELESAI') {
-            return '<span class="badge badge-success">SELESAI</span>';
-        } else {
-            return '<span class="badge badge-danger">GAGAL</span>';
-        }
+        return $this->status;
     }
 
     public function metode_pembayaran()
