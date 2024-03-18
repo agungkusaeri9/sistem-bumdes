@@ -58,30 +58,47 @@
                                         <td>{{ format_rupiah($item->ongkos_kirim) }}</td>
                                     </tr>
                                     <tr>
+                                        <th>Jenis Pembayaran</th>
+                                        <td>{{ $item->jenis_pembayaran }}</td>
+                                    </tr>
+                                    @if ($item->metode_pembayaran)
+                                        <tr>
+                                            <th>Metode Pembayaran</th>
+                                            <td>{{ $item->metode_pembayaran->nama . '-' . $item->metode_pembayaran->nomor_rekening . ' a.n ' . $item->metode_pembayaran->atas_nama }}
+                                            </td>
+                                        </tr>
+                                    @endif
+                                    <tr>
                                         <th>Total Bayar</th>
                                         <td>{{ format_rupiah($item->total_bayar) }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Metode Pembayaran</th>
-                                        <td>{{ $item->metode_pembayaran->nama . '-' . $item->metode_pembayaran->nomor_rekening . ' a.n ' . $item->metode_pembayaran->atas_nama }}
-                                        </td>
                                     </tr>
                                     <tr>
                                         <th>Status</th>
                                         <td>{!! $item->status() !!}</td>
                                     </tr>
-                                    <tr>
-                                        <th>Bukti Pembayaran</th>
-                                        <td>
-                                            @if ($item->bukti_pembayaran)
-                                                <a href="{{ asset('storage/' . $item->bukti_pembayaran) }}" target="_blank"
-                                                    class="btn btn-info btn-sm">Lihat</a>
-                                            @else
-                                                <a href="javascript:void(0)" class="btn btn-info btn-sm" data-toggle="modal"
-                                                    data-target="#uploadBuktiPembayaran">Upload Bukti</a>
-                                            @endif
-                                        </td>
-                                    </tr>
+                                    @if ($item->jenis === 'manual')
+                                        <tr>
+                                            <th>Bukti Pembayaran</th>
+                                            <td>
+                                                @if ($item->bukti_pembayaran)
+                                                    <a href="{{ asset('storage/' . $item->bukti_pembayaran) }}"
+                                                        target="_blank" class="btn btn-info btn-sm">Lihat</a>
+                                                @else
+                                                    <a href="javascript:void(0)" class="btn btn-info btn-sm"
+                                                        data-toggle="modal" data-target="#uploadBuktiPembayaran">Upload
+                                                        Bukti</a>
+                                                @endif
+                                            </td>
+                                        </tr>
+                                    @else
+                                        <tr>
+                                            <th>Aksi</th>
+                                            <td>
+                                                <a href="{{ env('MIDTRANS_URL') . $item->snap_token }}"
+                                                    class="btn btn-primary" target="_blank">Bayar</a>
+                                            </td>
+                                        </tr>
+                                    @endif
                                 </table>
                             </div>
                         </div>
