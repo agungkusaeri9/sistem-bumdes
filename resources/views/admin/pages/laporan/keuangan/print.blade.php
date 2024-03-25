@@ -81,7 +81,7 @@
                             Pemasukan
                         </td>
                         <td>
-                            {{ format_rupiah($items->where('jenis', 'pemasukan')->sum('nominal')) }}
+                            {{ $items ? format_rupiah($items->where('jenis', 'pemasukan')->sum('nominal')) : 'Rp 0' }}
                         </td>
                     </tr>
                     <tr>
@@ -89,7 +89,7 @@
                             Pengeluaran
                         </td>
                         <td>
-                            {{ format_rupiah($items->where('jenis', 'pengeluaran')->sum('nominal')) }}
+                            {{ $items ? format_rupiah($items->where('jenis', 'pengeluaran')->sum('nominal')) : 'Rp 0' }}
                         </td>
                     </tr>
                     <tr>
@@ -97,7 +97,7 @@
                             Total
                         </td>
                         <td>
-                            {{ format_rupiah($items->sum('nominal')) }}
+                            {{ $items ? format_rupiah($items->sum('nominal')) : 'Rp 0' }}
                         </td>
                     </tr>
                 </tbody>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Keuangan;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 
 class KeuanganController extends Controller
@@ -47,23 +48,6 @@ class KeuanganController extends Controller
             'nominal' => ['required']
         ]);
         $data = request()->all();
-        $cekData = Keuangan::latest()->first();
-        if ($cekData) {
-            // cek pengeluaran ajtau pemasukan
-            if (request('jenis') === 'pemasukan') {
-                $data['saldo_sebelumnya'] = $cekData->saldo_saat_ini;
-                $data['saldo_saat_ini'] = $cekData->saldo_saat_ini + request('nominal');
-            } else {
-                $data['saldo_sebelumnya'] = $cekData->saldo_saat_ini;
-                $data['saldo_saat_ini'] = $cekData->saldo_saat_ini - request('nominal');
-            }
-        } else {
-            if (request('jenis') === 'pengeluaran') {
-                return redirect()->back()->with('error', 'Saldo anda tidak mencukupi');
-            }
-            $data['saldo_sebelumnya'] = 0;
-            $data['saldo_saat_ini'] = request('nominal');
-        }
         Keuangan::create($data);
         $data = request()->all();
         return redirect()->route('admin.keuangan.index')->with('success', 'Keuangan berhasil ditambahkan.');
@@ -105,7 +89,8 @@ class KeuanganController extends Controller
     public function update(Request $request, $id)
     {
         request()->validate([
-            'nama' => ['required']
+            'jenis' => ['required'],
+            'nominal' => ['required']
         ]);
 
         $data = request()->all();
@@ -125,5 +110,38 @@ class KeuanganController extends Controller
         $item = Keuangan::findOrFail($id);
         $item->delete();
         return redirect()->route('admin.keuangan.index')->with('success', 'Keuangan berhasil dihapus.');
+    }
+
+    public function print()
+    {
+        $transaksi = Keuangan::latest();
+        $bulan = request('bulan');
+        $tahun = request('tahun');
+
+        $data = $transaksi->latest();
+
+        if ($bulan && $tahun) {
+            $data->whereMonth('created_at', $bulan)->whereYear('created_at', $tahun);
+        } elseif ($bulan && !$tahun) {
+            $data->whereMonth('created_at', $bulan);
+        } elseif ($tahun && !$bulan) {
+            $data->whereYear('created_at', $tahun);
+        } else {
+            $data->whereNotNull('id');
+        }
+
+        $items = $data->get();
+
+        if ($data->count() < 1) {
+            return redirect()->back()->with('warning', 'Data tidak ada');
+        }
+        $pdf = Pdf::loadView('admin.pages.laporan.keuangan.print', [
+            'title' => 'Laporan Keuangan',
+            'items' => $items,
+            'bulan' => $bulan,
+            'tahun' => $tahun
+        ]);
+        $nama = 'Laporan-keuangan-' . time() . '.pdf';
+        return $pdf->download($nama);
     }
 }

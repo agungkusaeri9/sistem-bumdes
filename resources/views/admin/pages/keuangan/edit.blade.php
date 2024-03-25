@@ -6,13 +6,13 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>Edit Jabatan</h1>
+                        <h1>Edit Keuangan</h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
-                            <li class="breadcrumb-item"><a href="{{ route('admin.jabatan.index') }}">Jabatan</a></li>
-                            <li class="breadcrumb-item">Edit Jabatan</li>
+                            <li class="breadcrumb-item"><a href="{{ route('admin.keuangan.index') }}">Keuangan</a></li>
+                            <li class="breadcrumb-item">Edit Keuangan</li>
                         </ol>
                     </div>
                 </div>
@@ -27,22 +27,47 @@
                         <div class="card">
                             <!-- /.card-header -->
                             <div class="card-body">
-                                <form action="{{ route('admin.jabatan.update', $item->id) }}" method="post"
-                                    class="needs-validation" novalidate="" enctype="multipart/form-data">
+                                <form action="{{ route('admin.keuangan.update', $item->id) }}" method="post"
+                                    class="needs-validation" novalidate="">
                                     @csrf
                                     @method('patch')
-                                    <div class="form-group">
-                                        <label>Nama</label>
-                                        <input type="text" class="form-control @error('nama') is-invalid @enderror"
-                                            required="" name="nama" value="{{ $item->nama ?? old('nama') }}">
-                                        @error('nama')
-                                            <div class="invalid-feedback">
+                                    <div class='form-group'>
+                                        <label for='jenis'>Jenis</label>
+                                        <select name='jenis' id='jenis'
+                                            class='form-control @error('jenis') is-invalid @enderror'>
+                                            <option value='' selected disabled>Pilih Jenis</option>
+                                            <option @selected($item->jenis === 'pemasukan') value="pemasukan">Pemasukan</option>
+                                            <option @selected($item->jenis === 'pengeluaran') value="pengeluaran">Pengeluaran</option>
+                                        </select>
+                                        @error('jenis')
+                                            <div class='invalid-feedback'>
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                    <div class='form-group mb-3'>
+                                        <label for='nominal' class='mb-2'>Nominal</label>
+                                        <input type='text' name='nominal'
+                                            class='form-control @error('nominal') is-invalid @enderror'
+                                            value='{{ $item->nominal ?? old('nominal') }}'>
+                                        @error('nominal')
+                                            <div class='invalid-feedback'>
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                    <div class='form-group mb-3'>
+                                        <label for='keterangan' class='mb-2'>Keterangan</label>
+                                        <textarea name='keterangan' id='keterangan' cols='30' rows='3'
+                                            class='form-control @error('keterangan') is-invalid @enderror'>{{ old('keterangan') }}</textarea>
+                                        @error('keterangan')
+                                            <div class='invalid-feedback'>
                                                 {{ $message }}
                                             </div>
                                         @enderror
                                     </div>
                                     <div class="form-group">
-                                        <button class="btn float-right btn-primary">Simpan</button>
+                                        <button class="btn float-right btn-primary">Update Data</button>
                                     </div>
                                 </form>
                             </div>

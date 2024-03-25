@@ -25,7 +25,7 @@
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-body">
-                                <form action="{{ route('admin.laporan.keuangan.print') }}" method="post">
+                                <form action="{{ route('admin.keuangan.print') }}" method="post">
                                     @csrf
                                     <div class='form-group'>
                                         <label for='bulan'>Bulan</label>

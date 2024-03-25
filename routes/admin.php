@@ -49,12 +49,11 @@ Route::middleware('cek_role:admin')->group(function () {
     });
 
     Route::resource('transaksi', TransaksiController::class);
-    Route::resource('keuangan', KeuanganController::class)->only(['index', 'create', 'store']);
+    Route::resource('keuangan', KeuanganController::class);
+    Route::post('/laporankeuangan', [KeuanganController::class, 'print'])->name('keuangan.print');
 });
 
 Route::controller(LaporanController::class)->name('laporan.')->group(function () {
     Route::get('/laporan/transaksi', 'transaksi_index')->name('transaksi.index')->middleware('cek_role:admin');
     Route::post('/laporan/transaksi', 'transaksi_print')->name('transaksi.print')->middleware('cek_role:admin');
-    Route::get('/laporan/keuangan', 'keuangan_index')->name('keuangan.index');
-    Route::post('/laporan/keuangan', 'keuangan_print')->name('keuangan.print');
 });

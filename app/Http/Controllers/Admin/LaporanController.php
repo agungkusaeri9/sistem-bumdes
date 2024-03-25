@@ -44,44 +44,4 @@ class LaporanController extends Controller
         $nama = 'Laporan-transaksi-' . time() . '.pdf';
         return $pdf->download($nama);
     }
-
-    public function keuangan_index()
-    {
-        return view('admin.pages.laporan.keuangan.index', [
-            'title' => 'Laporan Keuangan'
-        ]);
-    }
-
-    public function keuangan_print()
-    {
-        $transaksi = Keuangan::latest();
-        $bulan = request('bulan');
-        $tahun = request('tahun');
-
-        $data = $transaksi->latest();
-
-        if ($bulan && $tahun) {
-            $data->whereMonth('created_at', $bulan)->whereYear('created_at', $tahun);
-        } elseif ($bulan && !$tahun) {
-            $data->whereMonth('created_at', $bulan);
-        } elseif ($tahun && !$bulan) {
-            $data->whereYear('created_at', $tahun);
-        } else {
-            $data->whereNotNull('id');
-        }
-
-        $items = $data->get();
-
-        if ($data->count() < 1) {
-            return redirect()->back()->with('warning', 'Data tidak ada');
-        }
-        $pdf = Pdf::loadView('admin.pages.laporan.keuangan.print', [
-            'title' => 'Laporan Keuangan',
-            'items' => $items,
-            'bulan' => $bulan,
-            'tahun' => $tahun
-        ]);
-        $nama = 'Laporan-keuangan-' . time() . '.pdf';
-        return $pdf->download($nama);
-    }
 }

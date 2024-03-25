@@ -22,6 +22,59 @@
         <section class="content">
             <div class="container-fluid">
                 <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <form action="{{ route('admin.keuangan.print') }}" method="post">
+                                    @csrf
+                                    <div class='form-group'>
+                                        <label for='bulan'>Bulan</label>
+                                        <select name='bulan' id='bulan'
+                                            class='form-control @error('bulan') is-invalid @enderror'>
+                                            <option value='' selected disabled>Pilih Bulan</option>
+                                            <option value='1'>Januari</option>
+                                            <option value='2'>Februari</option>
+                                            <option value='3'>Maret</option>
+                                            <option value='4'>April</option>
+                                            <option value='5'>Mei</option>
+                                            <option value='6'>Juni</option>
+                                            <option value='7'>Juli</option>
+                                            <option value='8'>Agustus</option>
+                                            <option value='9'>September</option>
+                                            <option value='10'>Oktober</option>
+                                            <option value='11'>November</option>
+                                            <option value='12'>Desember</option>
+                                        </select>
+                                        @error('bulan')
+                                            <div class='invalid-feedback'>
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                    <div class='form-group'>
+                                        <label for='tahun'>Tahun</label>
+                                        <select name='tahun' id='tahun'
+                                            class='form-control @error('tahun') is-invalid @enderror'>
+                                            <option value='' selected disabled>Pilih Tahun</option>
+                                            <option value="2024">2024</option>
+                                            <option value="2025">2025</option>
+                                            <option value="2026">2026</option>
+                                        </select>
+                                        @error('tahun')
+                                            <div class='invalid-feedback'>
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                    <button class="btn btn-danger">Print</button>
+                                </form>
+                            </div>
+                        </div>
+                        <!-- /.card -->
+                    </div>
+                    <!-- /.col -->
+                </div>
+                <div class="row">
                     <div class="col-12">
                         <div class="card">
                             <!-- /.card-header -->
@@ -35,10 +88,9 @@
                                                 <th width="10">No.</th>
                                                 <th>Tanggal</th>
                                                 <th>Jenis</th>
-                                                <th>Keterangan</th>
-                                                <th>Saldo Sebelumnya</th>
                                                 <th>Nominal</th>
-                                                <th>Saldo Sekarang</th>
+                                                <th>Keterangan</th>
+                                                <th>Aksi</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -47,13 +99,44 @@
                                                     <td class="text-center">{{ $loop->iteration }}</td>
                                                     <td>{{ $item->created_at->translatedFormat('d F Y H:i:s') }}</td>
                                                     <td>{{ $item->jenis }}</td>
-                                                    <td>{{ $item->keterangan }}</td>
-                                                    <td>{{ format_rupiah($item->saldo_sebelumnya) }}</td>
                                                     <td>{{ format_rupiah($item->nominal) }}</td>
-                                                    <td>{{ format_rupiah($item->saldo_saat_ini) }}</td>
+                                                    <td>{{ $item->keterangan }}</td>
+                                                    <td>
+                                                        <a href="{{ route('admin.keuangan.edit', $item->id) }}"
+                                                            class="btn btn-sm btn-info"><i class="fas fa-edit"></i> Edit</a>
+                                                        <form action="" method="post" class="d-inline"
+                                                            id="formDelete">
+                                                            @csrf
+                                                            @method('delete')
+                                                            <button
+                                                                data-action="{{ route('admin.keuangan.destroy', $item->id) }}"
+                                                                class="btn btn-sm btn-danger btnDelete"><i
+                                                                    class="fas fa-trash"></i> Hapus</button>
+                                                        </form>
+                                                    </td>
                                                 </tr>
                                             @endforeach
                                         </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <th class="text-left" colspan="4">Pemasukan</th>
+                                                <td colspan="2">
+                                                    {{ $items ? format_rupiah($items->where('jenis', 'pemasukan')->sum('nominal')) : 'Rp 0' }}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th class="text-left" colspan="4">Pengeluaran</th>
+                                                <td colspan="2">
+                                                    {{ $items ? format_rupiah($items->where('jenis', 'pengeluaran')->sum('nominal')) : 'Rp 0' }}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th class="text-left" colspan="4">Laba</th>
+                                                <td colspan="2">
+                                                    {{ $items ? format_rupiah($items->where('jenis', 'pemasukan')->sum('nominal') - $items->where('jenis', 'pengeluaran')->sum('nominal')) : 'Rp 0' }}
+                                                </td>
+                                            </tr>
+                                        </tfoot>
                                     </table>
                                 </div>
                             </div>
