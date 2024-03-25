@@ -28,6 +28,7 @@
                                             <th>Total Bayar</th>
                                             <th>Status</th>
                                             <th>Kurir</th>
+                                            <th>Jenis Pembayaran</th>
                                             <th>Metode Pembayaran</th>
                                             <th>Aksi</th>
                                         </tr>
@@ -43,7 +44,11 @@
                                                 <td>{{ format_rupiah($item->total_bayar) }}</td>
                                                 <td>{!! $item->status() !!}</td>
                                                 <td>{{ $item->kurir }}</td>
-                                                <td>{{ $item->metode_pembayaran->nama . '-' . $item->metode_pembayaran->nomor_rekening . ' a.n ' . $item->metode_pembayaran->atas_nama }}
+                                                <td>{{ $item->jenis_pembayaran }}</td>
+                                                <td>
+                                                    @if ($item->metode_pembayaran)
+                                                        {{ $item->metode_pembayaran->nama . '-' . $item->metode_pembayaran->nomor_rekening . ' a.n ' . $item->metode_pembayaran->atas_nama }}
+                                                    @endif
                                                 </td>
                                                 <td>
                                                     <a href="{{ route('transaksi.show', $item->uuid) }}"

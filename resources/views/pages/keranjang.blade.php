@@ -156,6 +156,20 @@
                                     @enderror
                                 </div>
                                 <div class='form-group'>
+                                    <label for='jenis_pembayaran'>Jenis Pembayaran</label>
+                                    <select name='jenis_pembayaran' id='jenis_pembayaran'
+                                        class='form-control @error('jenis_pembayaran') is-invalid @enderror'>
+                                        <option value='' selected disabled>Pilih Jenis Pembayaran</option>
+                                        <option value="manual">Manual</option>
+                                        <option value="otomatis">Otomatis</option>
+                                    </select>
+                                    @error('jenis_pembayaran')
+                                        <div class='invalid-feedback'>
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                                <div class='form-group display-metode-pembayaran d-none'>
                                     <label for='metode_pembayaran_id'>Metode Pembayaran</label>
                                     <select name='metode_pembayaran_id' id='metode_pembayaran_id'
                                         class='form-control @error('metode_pembayaran_id') is-invalid @enderror'>
@@ -324,6 +338,15 @@
 
             $('.btnCheckout').on('click', function() {
                 $('#formCheckout').submit();
+            })
+
+            $('#jenis_pembayaran').on('change', function() {
+                let jenis_pembayaran = $(this).val();
+                if (jenis_pembayaran === 'manual') {
+                    $('.display-metode-pembayaran').removeClass('d-none');
+                } else {
+                    $('.display-metode-pembayaran').addClass('d-none');
+                }
             })
         })
     </script>
